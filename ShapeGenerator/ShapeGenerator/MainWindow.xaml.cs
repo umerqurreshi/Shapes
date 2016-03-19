@@ -114,6 +114,7 @@ namespace ShapeGenerator
                 myPointCollection.Add(new Point(randomNumber2x, randomNumber2y));
                 myPointCollection.Add(new Point(randomNumber2x, randomNumbery));
             }
+
             RotateTransform rotateTransform = new RotateTransform(randomNum.Next(0, 90), 0, 0);
             myPolygon.Points = myPointCollection;
             myPolygon.RenderTransform = rotateTransform;
