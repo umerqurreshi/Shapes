@@ -41,6 +41,7 @@ namespace ShapeGenerator
                 ellipse.Stroke = Brushes.Black;
                 grid.Children.Add(ellipse);
             }
+            // Ideally have a failsafe here, however we will always check a checkbox!
             else
             {
                 Draw();
