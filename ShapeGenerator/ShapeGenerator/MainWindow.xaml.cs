@@ -54,9 +54,6 @@ namespace ShapeGenerator
             Polygon myPolygon = new Polygon();
             myPolygon.Stroke = Brushes.Black;
             myPolygon.StrokeThickness = 2;
-
-
-
             PointCollection myPointCollection = new PointCollection();
 
             if (lineCheckBox.IsChecked.Value)
