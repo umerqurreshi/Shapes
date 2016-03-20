@@ -121,6 +121,7 @@ namespace ShapeGenerator
                 int y2 = randomNum.Next(350, 400);
                 int y3 = randomNum.Next(370, 590);
                 int y4 = randomNum.Next(270, 300);
+
                 myPointCollection.Add(new System.Windows.Point(413, y));
                 myPointCollection.Add(new System.Windows.Point(370, y2));
                 myPointCollection.Add(new System.Windows.Point(480, y4));
