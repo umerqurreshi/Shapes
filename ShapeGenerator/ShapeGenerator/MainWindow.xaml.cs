@@ -129,6 +129,38 @@ namespace ShapeGenerator
                 myPointCollection.Add(new System.Windows.Point(550, y));
             }
 
+            if (hexagonCheckBox.IsChecked.Value)
+            {
+                myPointCollection.Clear();
+                int x;
+                int x2;
+                int x3;
+                int x4;
+                int y;
+                int y2;
+                int y3;
+
+                do
+                {
+                    x = randomNum.Next(450, 480);
+                    x2 = randomNum.Next(500, 523);
+                    x3 = randomNum.Next(280, 300);
+                    x4 = randomNum.Next(330, 360);
+                    y = randomNum.Next(160, 180);
+                    y2 = randomNum.Next(230, 260);
+                    y3 = randomNum.Next(310, 350);
+                   
+                } while ((y2 - y != 80) && (y3 - y2 != 80) && (x2 - x != 60) && (x4 - x3 != 60));
+         
+
+                myPointCollection.Add(new System.Windows.Point(x, y));
+                myPointCollection.Add(new System.Windows.Point(x2, y2));
+                myPointCollection.Add(new System.Windows.Point(x, y3));
+                myPointCollection.Add(new System.Windows.Point(x4, y3));
+                myPointCollection.Add(new System.Windows.Point(x3, y2));
+                myPointCollection.Add(new System.Windows.Point(x4, y));
+            }
+
             RotateTransform rotateTransform = new RotateTransform(randomNum.Next(0, 90), 0, 0);
             myPolygon.Points = myPointCollection;
             myPolygon.RenderTransform = rotateTransform;
