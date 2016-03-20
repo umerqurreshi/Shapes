@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,7 +39,7 @@ namespace ShapeGenerator
                 canvas.Width = 200;
                 ellipse.Height = randomNum.Next(1, 400);
                 ellipse.Width = ellipse.Height;
-                ellipse.Stroke = Brushes.Black;
+                ellipse.Stroke = System.Windows.Media.Brushes.Black;
                 grid.Children.Add(ellipse);
             }
             // Ideally have a failsafe here, however we will always check a checkbox!
@@ -52,22 +53,22 @@ namespace ShapeGenerator
         private void Draw()
         {
             Polygon myPolygon = new Polygon();
-            myPolygon.Stroke = Brushes.Black;
+            myPolygon.Stroke = System.Windows.Media.Brushes.Black;
             myPolygon.StrokeThickness = 2;
             PointCollection myPointCollection = new PointCollection();
 
             if (lineCheckBox.IsChecked.Value)
             {
                 myPointCollection.Clear();
-                myPointCollection.Add(new Point(randomNum.Next(300, 600), randomNum.Next(600, 700)));
-                myPointCollection.Add(new Point(randomNum.Next(300, 600), randomNum.Next(600, 700)));
+                myPointCollection.Add(new System.Windows.Point(randomNum.Next(300, 600), randomNum.Next(600, 700)));
+                myPointCollection.Add(new System.Windows.Point(randomNum.Next(300, 600), randomNum.Next(600, 700)));
             }
             if (triangleCheckBox.IsChecked.Value)
             {
                 myPointCollection.Clear();
-                myPointCollection.Add(new Point(randomNum.Next(150, 500), randomNum.Next(500, 680)));
-                myPointCollection.Add(new Point(randomNum.Next(150, 600), randomNum.Next(440, 580)));
-                myPointCollection.Add(new Point(randomNum.Next(150, 500), randomNum.Next(440, 580)));
+                myPointCollection.Add(new System.Windows.Point(randomNum.Next(150, 500), randomNum.Next(500, 680)));
+                myPointCollection.Add(new System.Windows.Point(randomNum.Next(150, 600), randomNum.Next(440, 580)));
+                myPointCollection.Add(new System.Windows.Point(randomNum.Next(150, 500), randomNum.Next(440, 580)));
             }
             if (squareCheckBox.IsChecked.Value)
             {
@@ -85,10 +86,10 @@ namespace ShapeGenerator
                     randomNumber2y = randomNum.Next(100, 300);
                 } while (randomNumber2x - randomNumberx != randomNumber2y - randomNumbery);
 
-                myPointCollection.Add(new Point(randomNumberx, randomNumbery));
-                myPointCollection.Add(new Point(randomNumberx, randomNumber2y));
-                myPointCollection.Add(new Point(randomNumber2x, randomNumber2y));
-                myPointCollection.Add(new Point(randomNumber2x, randomNumbery));
+                myPointCollection.Add(new System.Windows.Point(randomNumberx, randomNumbery));
+                myPointCollection.Add(new System.Windows.Point(randomNumberx, randomNumber2y));
+                myPointCollection.Add(new System.Windows.Point(randomNumber2x, randomNumber2y));
+                myPointCollection.Add(new System.Windows.Point(randomNumber2x, randomNumbery));
             }
 
             if (rectangleCheckBox.IsChecked.Value)
@@ -107,10 +108,21 @@ namespace ShapeGenerator
                     randomNumber2y = randomNum.Next(100, 300);
                 } while (randomNumber2x - randomNumberx == randomNumber2y - randomNumbery);
 
-                myPointCollection.Add(new Point(randomNumberx, randomNumbery));
-                myPointCollection.Add(new Point(randomNumberx, randomNumber2y));
-                myPointCollection.Add(new Point(randomNumber2x, randomNumber2y));
-                myPointCollection.Add(new Point(randomNumber2x, randomNumbery));
+                myPointCollection.Add(new System.Windows.Point(randomNumberx, randomNumbery));
+                myPointCollection.Add(new System.Windows.Point(randomNumberx, randomNumber2y));
+                myPointCollection.Add(new System.Windows.Point(randomNumber2x, randomNumber2y));
+                myPointCollection.Add(new System.Windows.Point(randomNumber2x, randomNumbery));
+            }
+
+            if (pentagonCheckBox.IsChecked.Value)
+            {
+                myPointCollection.Clear();
+
+                myPointCollection.Add(new System.Windows.Point(113, 283));
+                myPointCollection.Add(new System.Windows.Point(70, 156));
+                myPointCollection.Add(new System.Windows.Point(180, 70));
+                myPointCollection.Add(new System.Windows.Point(290, 156));
+                myPointCollection.Add(new System.Windows.Point(250, 283));
             }
 
             RotateTransform rotateTransform = new RotateTransform(randomNum.Next(0, 90), 0, 0);
