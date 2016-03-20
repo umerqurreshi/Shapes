@@ -117,10 +117,10 @@ namespace ShapeGenerator
             if (pentagonCheckBox.IsChecked.Value)
             {
                 myPointCollection.Clear();
-
+                
                 myPointCollection.Add(new System.Windows.Point(113, 283));
                 myPointCollection.Add(new System.Windows.Point(70, 156));
-                myPointCollection.Add(new System.Windows.Point(180, 70));
+                myPointCollection.Add(new System.Windows.Point(180, randomNum.Next(70, 100)));
                 myPointCollection.Add(new System.Windows.Point(290, 156));
                 myPointCollection.Add(new System.Windows.Point(250, 283));
             }
