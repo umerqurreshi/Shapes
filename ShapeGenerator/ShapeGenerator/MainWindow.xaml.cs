@@ -117,12 +117,15 @@ namespace ShapeGenerator
             if (pentagonCheckBox.IsChecked.Value)
             {
                 myPointCollection.Clear();
-                
-                myPointCollection.Add(new System.Windows.Point(113, 283));
-                myPointCollection.Add(new System.Windows.Point(70, 156));
-                myPointCollection.Add(new System.Windows.Point(180, randomNum.Next(70, 100)));
-                myPointCollection.Add(new System.Windows.Point(290, 156));
-                myPointCollection.Add(new System.Windows.Point(250, 283));
+                int y = randomNum.Next(483, 600);
+                int y2 = randomNum.Next(350, 400);
+                int y3 = randomNum.Next(370, 590);
+                int y4 = randomNum.Next(270, 300);
+                myPointCollection.Add(new System.Windows.Point(413, y));
+                myPointCollection.Add(new System.Windows.Point(370, y2));
+                myPointCollection.Add(new System.Windows.Point(480, y4));
+                myPointCollection.Add(new System.Windows.Point(590, y2));
+                myPointCollection.Add(new System.Windows.Point(550, y));
             }
 
             RotateTransform rotateTransform = new RotateTransform(randomNum.Next(0, 90), 0, 0);
