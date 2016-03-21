@@ -62,36 +62,45 @@ namespace ShapeGenerator
 
             for (fileNumber = 1; fileNumber <= numberOfFiles; fileNumber++)
             {
-                if (circleCheckBox.IsChecked.Value)
+                await CircleCheckboxChecked();
+            }
+        }
+
+        private async Task CircleCheckboxChecked()
+        {
+            if (circleCheckBox.IsChecked.Value)
+            {
+                name = Shapes.Circle.ToString();
+                int widthAndHeight = randomNum.Next(1, 400);
+
+                using (var bmp = new Bitmap(3000, 3000))
                 {
-                    name = Shapes.Circle.ToString();
-                    int widthAndHeight = randomNum.Next(1, 400);
-
-                    using (var bmp = new Bitmap(3000, 3000))
+                    using (var gr = Graphics.FromImage(bmp))
                     {
-                        using (var gr = Graphics.FromImage(bmp))
-                        {
-                            gr.RotateTransform(randomNum.Next(0, 20));
-                            System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Brushes.Black);
-                            gr.DrawEllipse(pen, new RectangleF(randomNum.Next(100, 600), randomNum.Next(150, 650), widthAndHeight, widthAndHeight));
+                        gr.RotateTransform(randomNum.Next(0, 20));
+                        System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Brushes.Black);
+                        gr.DrawEllipse(pen, new RectangleF(randomNum.Next(100, 600), randomNum.Next(150, 650), widthAndHeight, widthAndHeight));
 
-                            var path = System.IO.Path.Combine(
-                                System.IO.Path.GetTempPath(),
-                                String.Format($"{name}-{fileNumber}.png"));
+                        var path = System.IO.Path.Combine(
+                            System.IO.Path.GetTempPath(),
+                            String.Format($"{name}-{fileNumber}.png"));
 
-                            bmp.Save(path);
-                        }
+                       await Task.Run(() => bmp.Save(path));
+
+                        // Keeping the user updated of file saving progress
+                        lblNumberOfFiles.Foreground = System.Windows.Media.Brushes.Green;
+                        lblNumberOfFiles.Content = fileNumber == numberOfFiles ? String.Format($"All {numberOfFiles} files saved") : String.Format($"{fileNumber} files saved");
                     }
                 }
-                // Ideally have a failsafe here, however we will always check a checkbox!
-                else
-                {
-                    await Draw();
+            }
+            // Ideally have a failsafe here, however we will always check a checkbox!
+            else
+            {
+                await Draw();
 
-                    // Keeping the user updated of file saving progress
-                    lblNumberOfFiles.Foreground = System.Windows.Media.Brushes.Green;
-                    lblNumberOfFiles.Content = fileNumber == numberOfFiles ? String.Format($"All {numberOfFiles} files saved") : String.Format($"{fileNumber} files saved");
-                }
+                // Keeping the user updated of file saving progress
+                lblNumberOfFiles.Foreground = System.Windows.Media.Brushes.Green;
+                lblNumberOfFiles.Content = fileNumber == numberOfFiles ? String.Format($"All {numberOfFiles} files saved") : String.Format($"{fileNumber} files saved");
             }
         }
 
