@@ -88,6 +88,7 @@ namespace ShapeGenerator
                 {
                     await Draw();
 
+                    // Keeping the user updated of file saving progress
                     lblNumberOfFiles.Foreground = System.Windows.Media.Brushes.Green;
                     lblNumberOfFiles.Content = fileNumber == numberOfFiles ? String.Format($"All {numberOfFiles} files saved") : String.Format($"{fileNumber} files saved");
                 }
