@@ -26,7 +26,6 @@ namespace ShapeGenerator
         public MainWindow()
         {
             InitializeComponent();
-            
         }
 
         Random randomNum = new Random();
@@ -45,7 +44,7 @@ namespace ShapeGenerator
             p = new PointF[0];
             int result = 0;
 
-            if(int.TryParse(txtNumberOfFiles.Text, out result))
+            if (int.TryParse(txtNumberOfFiles.Text, out result))
             {
                 numberOfFiles = result;
             }
@@ -54,14 +53,6 @@ namespace ShapeGenerator
             {
                 if (circleCheckBox.IsChecked.Value)
                 {
-                    Canvas canvas = new Canvas();
-                    Ellipse ellipse = new Ellipse();
-                    canvas.Height = 200;
-                    canvas.Width = 200;
-                    ellipse.Height = randomNum.Next(1, 400);
-                    ellipse.Width = ellipse.Height;
-                    ellipse.Stroke = System.Windows.Media.Brushes.Black;
-                    grid.Children.Add(ellipse);
                     name = "Circle";
                     int widthAndHeight = randomNum.Next(1, 400);
 
@@ -80,7 +71,6 @@ namespace ShapeGenerator
                             bmp.Save(path);
                         }
                     }
-                    
                 }
                 // Ideally have a failsafe here, however we will always check a checkbox!
                 else
@@ -92,23 +82,14 @@ namespace ShapeGenerator
 
         private void Draw()
         {
-            Polygon myPolygon = new Polygon();
-            myPolygon.Stroke = System.Windows.Media.Brushes.Black;
-            myPolygon.StrokeThickness = 2;
-            PointCollection myPointCollection = new PointCollection();
-
             if (lineCheckBox.IsChecked.Value)
             {
-                myPointCollection.Clear();
                 int x = randomNum.Next(300, 600);
                 int x1 = randomNum.Next(300, 600);
                 int y = randomNum.Next(600, 700);
-                int y1 = randomNum.Next(600, 700); 
+                int y1 = randomNum.Next(600, 700);
 
-                myPointCollection.Add(new System.Windows.Point(x, y));
-                myPointCollection.Add(new System.Windows.Point(x1, y1));
-
-                p = new PointF[] { new PointF(x, y), new PointF (x1,y1) };
+                p = new PointF[] { new PointF(x, y), new PointF(x1, y1) };
                 name = "Line";
             }
             if (triangleCheckBox.IsChecked.Value)
@@ -118,17 +99,11 @@ namespace ShapeGenerator
                 int y = randomNum.Next(500, 680);
                 int y1 = randomNum.Next(440, 580);
 
-                myPointCollection.Clear();
-                myPointCollection.Add(new System.Windows.Point(x, y));
-                myPointCollection.Add(new System.Windows.Point(x1, y1));
-                myPointCollection.Add(new System.Windows.Point(x, y1));
-
                 p = new PointF[] { new PointF(x, y), new PointF(x1, y1), new PointF(x, y1) };
                 name = "Triangle";
             }
             if (squareCheckBox.IsChecked.Value)
             {
-                myPointCollection.Clear();
                 int randomNumberx;
                 int randomNumber2x;
                 int randomNumber2y;
@@ -142,18 +117,12 @@ namespace ShapeGenerator
                     randomNumber2y = randomNum.Next(100, 300);
                 } while (randomNumber2x - randomNumberx != randomNumber2y - randomNumbery);
 
-                myPointCollection.Add(new System.Windows.Point(randomNumberx, randomNumbery));
-                myPointCollection.Add(new System.Windows.Point(randomNumberx, randomNumber2y));
-                myPointCollection.Add(new System.Windows.Point(randomNumber2x, randomNumber2y));
-                myPointCollection.Add(new System.Windows.Point(randomNumber2x, randomNumbery));
-
                 p = new PointF[] { new PointF(randomNumberx, randomNumbery), new PointF(randomNumberx, randomNumber2y), new PointF(randomNumber2x, randomNumber2y), new PointF(randomNumber2x, randomNumbery) };
                 name = "Square";
             }
 
             if (rectangleCheckBox.IsChecked.Value)
             {
-                myPointCollection.Clear();
                 int randomNumberx;
                 int randomNumber2x;
                 int randomNumber2y;
@@ -167,28 +136,16 @@ namespace ShapeGenerator
                     randomNumber2y = randomNum.Next(100, 300);
                 } while (randomNumber2x - randomNumberx == randomNumber2y - randomNumbery);
 
-                myPointCollection.Add(new System.Windows.Point(randomNumberx, randomNumbery));
-                myPointCollection.Add(new System.Windows.Point(randomNumberx, randomNumber2y));
-                myPointCollection.Add(new System.Windows.Point(randomNumber2x, randomNumber2y));
-                myPointCollection.Add(new System.Windows.Point(randomNumber2x, randomNumbery));
-
                 p = new PointF[] { new PointF(randomNumberx, randomNumbery), new PointF(randomNumberx, randomNumber2y), new PointF(randomNumber2x, randomNumber2y), new PointF(randomNumber2x, randomNumbery) };
                 name = "Rectangle";
             }
 
             if (pentagonCheckBox.IsChecked.Value)
             {
-                myPointCollection.Clear();
                 int y = randomNum.Next(483, 600);
                 int y2 = randomNum.Next(350, 400);
                 int y3 = randomNum.Next(370, 590);
                 int y4 = randomNum.Next(270, 300);
-
-                myPointCollection.Add(new System.Windows.Point(413, y));
-                myPointCollection.Add(new System.Windows.Point(370, y2));
-                myPointCollection.Add(new System.Windows.Point(480, y4));
-                myPointCollection.Add(new System.Windows.Point(590, y2));
-                myPointCollection.Add(new System.Windows.Point(550, y));
 
                 p = new PointF[] { new PointF(413, y), new PointF(370, y2), new PointF(480, y4), new PointF(590, y2), new PointF(550, y) };
                 name = "Pentagon";
@@ -196,7 +153,6 @@ namespace ShapeGenerator
 
             if (hexagonCheckBox.IsChecked.Value)
             {
-                myPointCollection.Clear();
                 int x;
                 int x2;
                 int x3;
@@ -214,34 +170,19 @@ namespace ShapeGenerator
                     y = randomNum.Next(160, 180);
                     y2 = randomNum.Next(230, 260);
                     y3 = randomNum.Next(310, 350);
-                   
-                } while ((y2 - y != 80) && (y3 - y2 != 80) && (x2 - x != 60) && (x4 - x3 != 60));
-         
 
-                myPointCollection.Add(new System.Windows.Point(x, y));
-                myPointCollection.Add(new System.Windows.Point(x2, y2));
-                myPointCollection.Add(new System.Windows.Point(x, y3));
-                myPointCollection.Add(new System.Windows.Point(x4, y3));
-                myPointCollection.Add(new System.Windows.Point(x3, y2));
-                myPointCollection.Add(new System.Windows.Point(x4, y));
+                } while ((y2 - y != 80) && (y3 - y2 != 80) && (x2 - x != 60) && (x4 - x3 != 60));
 
                 p = new PointF[] { new PointF(x, y), new PointF(x2, y2), new PointF(x, y3), new PointF(x4, y3), new PointF(x3, y2), new PointF(x4, y) };
                 name = "Hexagon";
             }
-
-            RotateTransform rotateTransform = new RotateTransform(randomNum.Next(0, 90), 0, 0);
-            myPolygon.Points = myPointCollection;
-            myPolygon.RenderTransform = rotateTransform;
-            rotateTransform.Angle = randomNum.Next(0, 90);
-            rotateTransform.CenterX = 400;
-            rotateTransform.CenterY = 200;
-            grid.Children.Add(myPolygon);
 
             using (var bmp = new Bitmap(3000, 3000))
             using (var gr = Graphics.FromImage(bmp))
             {
                 gr.RotateTransform(randomNum.Next(0, 20));
                 System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Brushes.Black);
+                //Note - we could use gr.DrawRectangle() to render a rectangle!
                 gr.DrawPolygon(pen, p);
 
                 var path = System.IO.Path.Combine(
@@ -321,6 +262,5 @@ namespace ShapeGenerator
             pentagonCheckBox.IsChecked = false;
             lineCheckBox.IsChecked = false;
         }
-
     }
 }
