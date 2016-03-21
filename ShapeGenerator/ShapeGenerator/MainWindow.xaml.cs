@@ -28,8 +28,19 @@ namespace ShapeGenerator
             InitializeComponent();
         }
 
+        private enum Shapes
+        {
+            Circle = 1,
+            Hexagon = 2,
+            Line = 3,
+            Pentagon = 4,
+            Rectangle = 5,
+            Square = 6,
+            Triangle = 7
+        }
+
         Random randomNum = new Random();
-        PointF[] p = new PointF[0];
+        PointF[] vertices = new PointF[0];
         string name = String.Empty;
         int numberOfFiles = 0;
         int fileNumber = 1;
@@ -41,7 +52,7 @@ namespace ShapeGenerator
                 MessageBox.Show("Please select a value");
             }
 
-            p = new PointF[0];
+            vertices = new PointF[0];
             int result = 0;
 
             if (int.TryParse(txtNumberOfFiles.Text, out result))
@@ -53,7 +64,7 @@ namespace ShapeGenerator
             {
                 if (circleCheckBox.IsChecked.Value)
                 {
-                    name = "Circle";
+                    name = Shapes.Circle.ToString();
                     int widthAndHeight = randomNum.Next(1, 400);
 
                     using (var bmp = new Bitmap(3000, 3000))
@@ -89,8 +100,8 @@ namespace ShapeGenerator
                 int y = randomNum.Next(600, 700);
                 int y1 = randomNum.Next(600, 700);
 
-                p = new PointF[] { new PointF(x, y), new PointF(x1, y1) };
-                name = "Line";
+                vertices = new PointF[] { new PointF(x, y), new PointF(x1, y1) };
+                name = Shapes.Line.ToString();
             }
             if (triangleCheckBox.IsChecked.Value)
             {
@@ -99,8 +110,8 @@ namespace ShapeGenerator
                 int y = randomNum.Next(500, 680);
                 int y1 = randomNum.Next(440, 580);
 
-                p = new PointF[] { new PointF(x, y), new PointF(x1, y1), new PointF(x, y1) };
-                name = "Triangle";
+                vertices = new PointF[] { new PointF(x, y), new PointF(x1, y1), new PointF(x, y1) };
+                name = Shapes.Triangle.ToString();
             }
             if (squareCheckBox.IsChecked.Value)
             {
@@ -117,8 +128,8 @@ namespace ShapeGenerator
                     randomNumber2y = randomNum.Next(100, 300);
                 } while (randomNumber2x - randomNumberx != randomNumber2y - randomNumbery);
 
-                p = new PointF[] { new PointF(randomNumberx, randomNumbery), new PointF(randomNumberx, randomNumber2y), new PointF(randomNumber2x, randomNumber2y), new PointF(randomNumber2x, randomNumbery) };
-                name = "Square";
+                vertices = new PointF[] { new PointF(randomNumberx, randomNumbery), new PointF(randomNumberx, randomNumber2y), new PointF(randomNumber2x, randomNumber2y), new PointF(randomNumber2x, randomNumbery) };
+                name = Shapes.Square.ToString();
             }
 
             if (rectangleCheckBox.IsChecked.Value)
@@ -136,8 +147,8 @@ namespace ShapeGenerator
                     randomNumber2y = randomNum.Next(100, 300);
                 } while (randomNumber2x - randomNumberx == randomNumber2y - randomNumbery);
 
-                p = new PointF[] { new PointF(randomNumberx, randomNumbery), new PointF(randomNumberx, randomNumber2y), new PointF(randomNumber2x, randomNumber2y), new PointF(randomNumber2x, randomNumbery) };
-                name = "Rectangle";
+                vertices = new PointF[] { new PointF(randomNumberx, randomNumbery), new PointF(randomNumberx, randomNumber2y), new PointF(randomNumber2x, randomNumber2y), new PointF(randomNumber2x, randomNumbery) };
+                name = Shapes.Rectangle.ToString();
             }
 
             if (pentagonCheckBox.IsChecked.Value)
@@ -147,8 +158,8 @@ namespace ShapeGenerator
                 int y3 = randomNum.Next(370, 590);
                 int y4 = randomNum.Next(270, 300);
 
-                p = new PointF[] { new PointF(413, y), new PointF(370, y2), new PointF(480, y4), new PointF(590, y2), new PointF(550, y) };
-                name = "Pentagon";
+                vertices = new PointF[] { new PointF(413, y), new PointF(370, y2), new PointF(480, y4), new PointF(590, y2), new PointF(550, y) };
+                name = Shapes.Pentagon.ToString();
             }
 
             if (hexagonCheckBox.IsChecked.Value)
@@ -173,8 +184,8 @@ namespace ShapeGenerator
 
                 } while ((y2 - y != 80) && (y3 - y2 != 80) && (x2 - x != 60) && (x4 - x3 != 60));
 
-                p = new PointF[] { new PointF(x, y), new PointF(x2, y2), new PointF(x, y3), new PointF(x4, y3), new PointF(x3, y2), new PointF(x4, y) };
-                name = "Hexagon";
+                vertices = new PointF[] { new PointF(x, y), new PointF(x2, y2), new PointF(x, y3), new PointF(x4, y3), new PointF(x3, y2), new PointF(x4, y) };
+                name = Shapes.Hexagon.ToString();
             }
 
             using (var bmp = new Bitmap(3000, 3000))
@@ -183,7 +194,7 @@ namespace ShapeGenerator
                 gr.RotateTransform(randomNum.Next(0, 20));
                 System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Brushes.Black);
                 //Note - we could use gr.DrawRectangle() to render a rectangle!
-                gr.DrawPolygon(pen, p);
+                gr.DrawPolygon(pen, vertices);
 
                 var path = System.IO.Path.Combine(
                     System.IO.Path.GetTempPath(),
