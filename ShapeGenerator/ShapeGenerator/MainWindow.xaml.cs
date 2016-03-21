@@ -32,50 +32,53 @@ namespace ShapeGenerator
         PointF[] p = new PointF[0];
         string name = String.Empty;
         int numberOfFiles = 0;
+        int fileNumber = 1;
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
             p = new PointF[0];
             int result = 0;
+
             if(int.TryParse(txtNumberOfFiles.Text, out result))
             {
                 numberOfFiles = result;
             }
-            for (int i = 1; i <= numberOfFiles; i++)
-            {
 
-            }
-            if (circleCheckBox.IsChecked.Value)
+            for (fileNumber = 1; fileNumber <= numberOfFiles; fileNumber++)
             {
-                Canvas canvas = new Canvas();
-                Ellipse ellipse = new Ellipse();
-                canvas.Height = 200;
-                canvas.Width = 200;
-                ellipse.Height = randomNum.Next(1, 400);
-                ellipse.Width = ellipse.Height;
-                ellipse.Stroke = System.Windows.Media.Brushes.Black;
-                grid.Children.Add(ellipse);
-                name = "Circle";
-                int widthAndHeight = randomNum.Next(1, 400);
-                using (var bmp = new Bitmap(3000, 3000))
-                using (var gr = Graphics.FromImage(bmp))
+                if (circleCheckBox.IsChecked.Value)
                 {
-                    gr.RotateTransform(randomNum.Next(0, 20));
-                    System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Brushes.Black);
-                    gr.DrawEllipse(pen, new RectangleF(randomNum.Next(100, 600), randomNum.Next(150, 650), widthAndHeight, widthAndHeight));
+                    Canvas canvas = new Canvas();
+                    Ellipse ellipse = new Ellipse();
+                    canvas.Height = 200;
+                    canvas.Width = 200;
+                    ellipse.Height = randomNum.Next(1, 400);
+                    ellipse.Width = ellipse.Height;
+                    ellipse.Stroke = System.Windows.Media.Brushes.Black;
+                    grid.Children.Add(ellipse);
+                    name = "Circle";
+                    int widthAndHeight = randomNum.Next(1, 400);
+                    using (var bmp = new Bitmap(3000, 3000))
+                    using (var gr = Graphics.FromImage(bmp))
+                    {
+                        gr.RotateTransform(randomNum.Next(0, 20));
+                        System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Brushes.Black);
+                        gr.DrawEllipse(pen, new RectangleF(randomNum.Next(100, 600), randomNum.Next(150, 650), widthAndHeight, widthAndHeight));
 
-                    var path = System.IO.Path.Combine(
-                        System.IO.Path.GetTempPath(),
-                        name + ".png");
+                        var path = System.IO.Path.Combine(
+                            System.IO.Path.GetTempPath(),
+                            String.Format($"{name}-{fileNumber}.png"));
 
-                    bmp.Save(path);
+                        bmp.Save(path);
+                    }
+                }
+                // Ideally have a failsafe here, however we will always check a checkbox!
+                else
+                {
+                    Draw();
                 }
             }
-            // Ideally have a failsafe here, however we will always check a checkbox!
-            else
-            {
-                Draw();
-            }
+            
 
         }
 
@@ -221,13 +224,11 @@ namespace ShapeGenerator
 
                 var path = System.IO.Path.Combine(
                     System.IO.Path.GetTempPath(),
-                    name + ".png");
+                    String.Format($"{name}-{fileNumber}.png"));
 
                 bmp.Save(path);
             }
         }
-
-   
 
         private void circleCheckBox_Checked(object sender, RoutedEventArgs e)
         {
