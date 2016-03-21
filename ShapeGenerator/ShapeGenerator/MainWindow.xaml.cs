@@ -1,6 +1,8 @@
 ﻿using System;
+
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,10 +29,22 @@ namespace ShapeGenerator
         }
 
         Random randomNum = new Random();
+        PointF[] p = new PointF[0];
+        string name = String.Empty;
+        int numberOfFiles = 0;
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
+            p = new PointF[0];
+            int result = 0;
+            if(int.TryParse(txtNumberOfFiles.Text, out result))
+            {
+                numberOfFiles = result;
+            }
+            for (int i = 1; i <= numberOfFiles; i++)
+            {
 
+            }
             if (circleCheckBox.IsChecked.Value)
             {
                 Canvas canvas = new Canvas();
@@ -41,6 +55,21 @@ namespace ShapeGenerator
                 ellipse.Width = ellipse.Height;
                 ellipse.Stroke = System.Windows.Media.Brushes.Black;
                 grid.Children.Add(ellipse);
+                name = "Circle";
+                int widthAndHeight = randomNum.Next(1, 400);
+                using (var bmp = new Bitmap(3000, 3000))
+                using (var gr = Graphics.FromImage(bmp))
+                {
+                    gr.RotateTransform(randomNum.Next(0, 20));
+                    System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Brushes.Black);
+                    gr.DrawEllipse(pen, new RectangleF(randomNum.Next(100, 600), randomNum.Next(150, 650), widthAndHeight, widthAndHeight));
+
+                    var path = System.IO.Path.Combine(
+                        System.IO.Path.GetTempPath(),
+                        name + ".png");
+
+                    bmp.Save(path);
+                }
             }
             // Ideally have a failsafe here, however we will always check a checkbox!
             else
@@ -60,15 +89,29 @@ namespace ShapeGenerator
             if (lineCheckBox.IsChecked.Value)
             {
                 myPointCollection.Clear();
-                myPointCollection.Add(new System.Windows.Point(randomNum.Next(300, 600), randomNum.Next(600, 700)));
-                myPointCollection.Add(new System.Windows.Point(randomNum.Next(300, 600), randomNum.Next(600, 700)));
+                int x = randomNum.Next(300, 600);
+                int x1 = randomNum.Next(300, 600);
+                int y = randomNum.Next(600, 700);
+                int y1 = randomNum.Next(600, 700); 
+
+                myPointCollection.Add(new System.Windows.Point(x, y));
+                myPointCollection.Add(new System.Windows.Point(x1, y1));
+                p = new PointF[] { new PointF(x, y), new PointF (x1,y1) };
+                name = "Line";
             }
             if (triangleCheckBox.IsChecked.Value)
             {
+                int x = randomNum.Next(150, 500);
+                int x1 = randomNum.Next(150, 600);
+                int y = randomNum.Next(500, 680);
+                int y1 = randomNum.Next(440, 580);
+
                 myPointCollection.Clear();
-                myPointCollection.Add(new System.Windows.Point(randomNum.Next(150, 500), randomNum.Next(500, 680)));
-                myPointCollection.Add(new System.Windows.Point(randomNum.Next(150, 600), randomNum.Next(440, 580)));
-                myPointCollection.Add(new System.Windows.Point(randomNum.Next(150, 500), randomNum.Next(440, 580)));
+                myPointCollection.Add(new System.Windows.Point(x, y));
+                myPointCollection.Add(new System.Windows.Point(x1, y1));
+                myPointCollection.Add(new System.Windows.Point(x, y1));
+                p = new PointF[] { new PointF(x, y), new PointF(x1, y1), new PointF(x, y1) };
+                name = "Triangle";
             }
             if (squareCheckBox.IsChecked.Value)
             {
@@ -168,7 +211,23 @@ namespace ShapeGenerator
             rotateTransform.CenterX = 400;
             rotateTransform.CenterY = 200;
             grid.Children.Add(myPolygon);
+
+            using (var bmp = new Bitmap(3000, 3000))
+            using (var gr = Graphics.FromImage(bmp))
+            {
+                gr.RotateTransform(randomNum.Next(0, 20));
+                System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Brushes.Black);
+                gr.DrawPolygon(pen, p);
+
+                var path = System.IO.Path.Combine(
+                    System.IO.Path.GetTempPath(),
+                    name + ".png");
+
+                bmp.Save(path);
+            }
         }
+
+   
 
         private void circleCheckBox_Checked(object sender, RoutedEventArgs e)
         {
@@ -239,5 +298,6 @@ namespace ShapeGenerator
             pentagonCheckBox.IsChecked = false;
             lineCheckBox.IsChecked = false;
         }
+
     }
 }

@@ -15,6 +15,7 @@
         <CheckBox x:Name="rectangleCheckBox" Content="Rectangle" HorizontalAlignment="Left" Margin="43,182,0,0" VerticalAlignment="Top" Checked="rectangleCheckBox_Checked"/>
         <CheckBox x:Name="pentagonCheckBox" Content="Pentagon" HorizontalAlignment="Left" Margin="43,202,0,0" VerticalAlignment="Top" Checked="pentagonCheckBox_Checked"/>
         <CheckBox x:Name="hexagonCheckBox" Content="Hexagon" HorizontalAlignment="Left" Margin="43,222,0,0" VerticalAlignment="Top" Checked="hexagonCheckBox_Checked"/>
+        <TextBox x:Name="txtNumberOfFiles" HorizontalAlignment="Left" Height="23" Margin="331,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
 
     </Grid>
 
