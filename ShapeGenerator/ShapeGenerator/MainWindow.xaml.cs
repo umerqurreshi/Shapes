@@ -89,8 +89,7 @@ namespace ShapeGenerator
                     await Draw();
 
                     lblNumberOfFiles.Foreground = System.Windows.Media.Brushes.Green;
-                    lblNumberOfFiles.Content = String.Format($"{fileNumber} files saved");
-                    
+                    lblNumberOfFiles.Content = fileNumber == numberOfFiles ? String.Format($"All {numberOfFiles} files saved") : String.Format($"{fileNumber} files saved");
                 }
             }
         }
