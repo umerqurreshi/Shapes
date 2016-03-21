@@ -8,13 +8,13 @@
         Title="MainWindow" Height="1000" Width="925">
     <Grid Name="grid" Height="1000" Width="925">
         <Button x:Name="btnSubmit" Content="Generate Files" HorizontalAlignment="Left" Margin="43,61,0,0" VerticalAlignment="Top" Width="85" Click="button_Click"/>
-        <CheckBox x:Name="circleCheckBox" Content="Circle" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="43,102,0,0" Checked="circleCheckBox_Checked"/>
-        <CheckBox x:Name="lineCheckBox" Content="Line" HorizontalAlignment="Left" Margin="43,122,0,0" VerticalAlignment="Top" Checked="lineCheckBox_Checked" />
-        <CheckBox x:Name="triangleCheckBox" Content="Triangle" HorizontalAlignment="Left" Margin="43,142,0,0" VerticalAlignment="Top" Checked="triangleCheckBox_Checked" />
-        <CheckBox x:Name="squareCheckBox" Content="Square" HorizontalAlignment="Left" Margin="43,162,0,0" VerticalAlignment="Top" Checked="squareCheckBox_Checked"/>
-        <CheckBox x:Name="rectangleCheckBox" Content="Rectangle" HorizontalAlignment="Left" Margin="43,182,0,0" VerticalAlignment="Top" Checked="rectangleCheckBox_Checked"/>
-        <CheckBox x:Name="pentagonCheckBox" Content="Pentagon" HorizontalAlignment="Left" Margin="43,202,0,0" VerticalAlignment="Top" Checked="pentagonCheckBox_Checked"/>
-        <CheckBox x:Name="hexagonCheckBox" Content="Hexagon" HorizontalAlignment="Left" Margin="43,222,0,0" VerticalAlignment="Top" Checked="hexagonCheckBox_Checked"/>
+        <CheckBox x:Name="circleCheckBox" Content="Circle" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="43,102,0,0"/>
+        <CheckBox x:Name="lineCheckBox" Content="Line" HorizontalAlignment="Left" Margin="43,122,0,0" VerticalAlignment="Top" />
+        <CheckBox x:Name="triangleCheckBox" Content="Triangle" HorizontalAlignment="Left" Margin="43,142,0,0" VerticalAlignment="Top" />
+        <CheckBox x:Name="squareCheckBox" Content="Square" HorizontalAlignment="Left" Margin="43,162,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="rectangleCheckBox" Content="Rectangle" HorizontalAlignment="Left" Margin="43,182,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="pentagonCheckBox" Content="Pentagon" HorizontalAlignment="Left" Margin="43,202,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="hexagonCheckBox" Content="Hexagon" HorizontalAlignment="Left" Margin="43,222,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtNumberOfFiles" HorizontalAlignment="Left" Height="17" Margin="182,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100"/>
         <Label x:Name="lblNumberOfFiles" HorizontalAlignment="Left" Height="44" Margin="39,25,0,0" VerticalAlignment="Top" Width="200" Content="No. of files to generate"/>
     </Grid>
