@@ -1,7 +1,20 @@
 ﻿using System;
+
+using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
 namespace ShapeGenerator
 {
@@ -84,75 +97,35 @@ namespace ShapeGenerator
 
         private async Task Draw()
         {
-            if (lineCheckBox.IsChecked.Value)
+            LineCheckboxChecked();
+            TriangleCheckboxChecked();
+            SquareCheckboxChecked();
+            RectangleCheckboxChecked();
+            PentagonCheckboxChecked();
+            HexagonCheckboxChecked();
+            await DrawImage();
+        }
+
+        private async Task DrawImage()
+        {
+            using (var bmp = new Bitmap(3000, 3000))
+            using (var gr = Graphics.FromImage(bmp))
             {
-                int x = randomNum.Next(300, 600);
-                int x1 = randomNum.Next(300, 600);
-                int y = randomNum.Next(600, 700);
-                int y1 = randomNum.Next(600, 700);
+                gr.RotateTransform(randomNum.Next(0, 20));
+                System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Brushes.Black);
+                //Note - we could use gr.DrawRectangle() to render a rectangle!
+                gr.DrawPolygon(pen, vertices);
 
-                vertices = new PointF[] { new PointF(x, y), new PointF(x1, y1) };
-                name = Shapes.Line.ToString();
+                var path = System.IO.Path.Combine(
+                    System.IO.Path.GetTempPath(),
+                    String.Format($"{name}-{fileNumber}.png"));
+
+                await Task.Run(() => bmp.Save(path));
             }
-            if (triangleCheckBox.IsChecked.Value)
-            {
-                int x = randomNum.Next(150, 500);
-                int x1 = randomNum.Next(150, 600);
-                int y = randomNum.Next(500, 680);
-                int y1 = randomNum.Next(440, 580);
+        }
 
-                vertices = new PointF[] { new PointF(x, y), new PointF(x1, y1), new PointF(x, y1) };
-                name = Shapes.Triangle.ToString();
-            }
-            if (squareCheckBox.IsChecked.Value)
-            {
-                int randomNumberx;
-                int randomNumber2x;
-                int randomNumber2y;
-                int randomNumbery;
-
-                do
-                {
-                    randomNumberx = randomNum.Next(350, 900);
-                    randomNumber2x = randomNum.Next(400, 700);
-                    randomNumbery = randomNum.Next(100, 300);
-                    randomNumber2y = randomNum.Next(100, 300);
-                } while (randomNumber2x - randomNumberx != randomNumber2y - randomNumbery);
-
-                vertices = new PointF[] { new PointF(randomNumberx, randomNumbery), new PointF(randomNumberx, randomNumber2y), new PointF(randomNumber2x, randomNumber2y), new PointF(randomNumber2x, randomNumbery) };
-                name = Shapes.Square.ToString();
-            }
-
-            if (rectangleCheckBox.IsChecked.Value)
-            {
-                int randomNumberx;
-                int randomNumber2x;
-                int randomNumber2y;
-                int randomNumbery;
-
-                do
-                {
-                    randomNumberx = randomNum.Next(350, 900);
-                    randomNumber2x = randomNum.Next(400, 700);
-                    randomNumbery = randomNum.Next(100, 300);
-                    randomNumber2y = randomNum.Next(100, 300);
-                } while (randomNumber2x - randomNumberx == randomNumber2y - randomNumbery);
-
-                vertices = new PointF[] { new PointF(randomNumberx, randomNumbery), new PointF(randomNumberx, randomNumber2y), new PointF(randomNumber2x, randomNumber2y), new PointF(randomNumber2x, randomNumbery) };
-                name = Shapes.Rectangle.ToString();
-            }
-
-            if (pentagonCheckBox.IsChecked.Value)
-            {
-                int y = randomNum.Next(483, 600);
-                int y2 = randomNum.Next(350, 400);
-                int y3 = randomNum.Next(370, 590);
-                int y4 = randomNum.Next(270, 300);
-
-                vertices = new PointF[] { new PointF(413, y), new PointF(370, y2), new PointF(480, y4), new PointF(590, y2), new PointF(550, y) };
-                name = Shapes.Pentagon.ToString();
-            }
-
+        private void HexagonCheckboxChecked()
+        {
             if (hexagonCheckBox.IsChecked.Value)
             {
                 int x;
@@ -178,20 +151,91 @@ namespace ShapeGenerator
                 vertices = new PointF[] { new PointF(x, y), new PointF(x2, y2), new PointF(x, y3), new PointF(x4, y3), new PointF(x3, y2), new PointF(x4, y) };
                 name = Shapes.Hexagon.ToString();
             }
+        }
 
-            using (var bmp = new Bitmap(3000, 3000))
-            using (var gr = Graphics.FromImage(bmp))
+        private void PentagonCheckboxChecked()
+        {
+            if (pentagonCheckBox.IsChecked.Value)
             {
-                gr.RotateTransform(randomNum.Next(0, 20));
-                System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Brushes.Black);
-                //Note - we could use gr.DrawRectangle() to render a rectangle!
-                gr.DrawPolygon(pen, vertices);
+                int y = randomNum.Next(483, 600);
+                int y2 = randomNum.Next(350, 400);
+                int y3 = randomNum.Next(370, 590);
+                int y4 = randomNum.Next(270, 300);
 
-                var path = System.IO.Path.Combine(
-                    System.IO.Path.GetTempPath(),
-                    String.Format($"{name}-{fileNumber}.png"));
+                vertices = new PointF[] { new PointF(413, y), new PointF(370, y2), new PointF(480, y4), new PointF(590, y2), new PointF(550, y) };
+                name = Shapes.Pentagon.ToString();
+            }
+        }
 
-              await Task.Run(() => bmp.Save(path));
+        private void RectangleCheckboxChecked()
+        {
+            if (rectangleCheckBox.IsChecked.Value)
+            {
+                int randomNumberx;
+                int randomNumber2x;
+                int randomNumber2y;
+                int randomNumbery;
+
+                do
+                {
+                    randomNumberx = randomNum.Next(350, 900);
+                    randomNumber2x = randomNum.Next(400, 700);
+                    randomNumbery = randomNum.Next(100, 300);
+                    randomNumber2y = randomNum.Next(100, 300);
+                } while (randomNumber2x - randomNumberx == randomNumber2y - randomNumbery);
+
+                vertices = new PointF[] { new PointF(randomNumberx, randomNumbery), new PointF(randomNumberx, randomNumber2y), new PointF(randomNumber2x, randomNumber2y), new PointF(randomNumber2x, randomNumbery) };
+                name = Shapes.Rectangle.ToString();
+            }
+        }
+
+        private void SquareCheckboxChecked()
+        {
+            if (squareCheckBox.IsChecked.Value)
+            {
+                int randomNumberx;
+                int randomNumber2x;
+                int randomNumber2y;
+                int randomNumbery;
+
+                do
+                {
+                    randomNumberx = randomNum.Next(350, 900);
+                    randomNumber2x = randomNum.Next(400, 700);
+                    randomNumbery = randomNum.Next(100, 300);
+                    randomNumber2y = randomNum.Next(100, 300);
+                } while (randomNumber2x - randomNumberx != randomNumber2y - randomNumbery);
+
+                vertices = new PointF[] { new PointF(randomNumberx, randomNumbery), new PointF(randomNumberx, randomNumber2y), new PointF(randomNumber2x, randomNumber2y), new PointF(randomNumber2x, randomNumbery) };
+                name = Shapes.Square.ToString();
+            }
+        }
+
+        private void TriangleCheckboxChecked()
+        {
+            if (triangleCheckBox.IsChecked.Value)
+            {
+                int x = randomNum.Next(150, 500);
+                int x1 = randomNum.Next(150, 600);
+                int y = randomNum.Next(500, 680);
+                int y1 = randomNum.Next(440, 580);
+
+                vertices = new PointF[] { new PointF(x, y), new PointF(x1, y1), new PointF(x, y1) };
+                name = Shapes.Triangle.ToString();
+            }
+        }
+
+        private void LineCheckboxChecked()
+        {
+            if (lineCheckBox.IsChecked.Value)
+            {
+                int x = randomNum.Next(300, 600);
+                int x1 = randomNum.Next(300, 600);
+                int y = randomNum.Next(600, 700);
+                int y1 = randomNum.Next(600, 700);
+
+                vertices = new PointF[] { new PointF(x, y), new PointF(x1, y1) };
+                name = Shapes.Line.ToString();
             }
         }
 
