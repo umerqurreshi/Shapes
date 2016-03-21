@@ -85,7 +85,7 @@ namespace ShapeGenerator
                             System.IO.Path.GetTempPath(),
                             String.Format($"{name}-{fileNumber}.png"));
 
-                       await Task.Run(() => bmp.Save(path));
+                        await Task.Run(() => bmp.Save(path));
 
                         // Keeping the user updated of file saving progress
                         lblNumberOfFiles.Foreground = System.Windows.Media.Brushes.Green;
@@ -118,18 +118,20 @@ namespace ShapeGenerator
         private async Task DrawImage()
         {
             using (var bmp = new Bitmap(3000, 3000))
-            using (var gr = Graphics.FromImage(bmp))
             {
-                gr.RotateTransform(randomNum.Next(0, 20));
-                System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Brushes.Black);
-                //Note - we could use gr.DrawRectangle() to render a rectangle!
-                gr.DrawPolygon(pen, vertices);
+                using (var gr = Graphics.FromImage(bmp))
+                {
+                    gr.RotateTransform(randomNum.Next(0, 20));
+                    System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Brushes.Black);
+                    //Note - we could use gr.DrawRectangle() to render a rectangle!
+                    gr.DrawPolygon(pen, vertices);
 
-                var path = System.IO.Path.Combine(
-                    System.IO.Path.GetTempPath(),
-                    String.Format($"{name}-{fileNumber}.png"));
+                    var path = System.IO.Path.Combine(
+                        System.IO.Path.GetTempPath(),
+                        String.Format($"{name}-{fileNumber}.png"));
 
-                await Task.Run(() => bmp.Save(path));
+                    await Task.Run(() => bmp.Save(path));
+                }
             }
         }
 
