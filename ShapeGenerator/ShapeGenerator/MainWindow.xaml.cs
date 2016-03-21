@@ -37,7 +37,7 @@ namespace ShapeGenerator
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            if (!circleCheckBox.IsChecked.Value && !lineCheckBox.IsChecked.Value && !circleCheckBox.IsChecked.Value && !triangleCheckBox.IsChecked.Value && !squareCheckBox.IsChecked.Value && !pentagonCheckBox.IsChecked.Value && !hexagonCheckBox.IsChecked.Value)
+            if (!circleCheckBox.IsChecked.Value && !lineCheckBox.IsChecked.Value && !triangleCheckBox.IsChecked.Value && !squareCheckBox.IsChecked.Value && !rectangleCheckBox.IsChecked.Value && !pentagonCheckBox.IsChecked.Value && !hexagonCheckBox.IsChecked.Value)
             {
                 MessageBox.Show("Please select a value");
             }
