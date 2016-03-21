@@ -88,8 +88,6 @@ namespace ShapeGenerator
                     Draw();
                 }
             }
-            
-
         }
 
         private void Draw()
@@ -109,6 +107,7 @@ namespace ShapeGenerator
 
                 myPointCollection.Add(new System.Windows.Point(x, y));
                 myPointCollection.Add(new System.Windows.Point(x1, y1));
+
                 p = new PointF[] { new PointF(x, y), new PointF (x1,y1) };
                 name = "Line";
             }
@@ -123,6 +122,7 @@ namespace ShapeGenerator
                 myPointCollection.Add(new System.Windows.Point(x, y));
                 myPointCollection.Add(new System.Windows.Point(x1, y1));
                 myPointCollection.Add(new System.Windows.Point(x, y1));
+
                 p = new PointF[] { new PointF(x, y), new PointF(x1, y1), new PointF(x, y1) };
                 name = "Triangle";
             }
@@ -146,6 +146,9 @@ namespace ShapeGenerator
                 myPointCollection.Add(new System.Windows.Point(randomNumberx, randomNumber2y));
                 myPointCollection.Add(new System.Windows.Point(randomNumber2x, randomNumber2y));
                 myPointCollection.Add(new System.Windows.Point(randomNumber2x, randomNumbery));
+
+                p = new PointF[] { new PointF(randomNumberx, randomNumbery), new PointF(randomNumberx, randomNumber2y), new PointF(randomNumber2x, randomNumber2y), new PointF(randomNumber2x, randomNumbery) };
+                name = "Square";
             }
 
             if (rectangleCheckBox.IsChecked.Value)
@@ -168,6 +171,9 @@ namespace ShapeGenerator
                 myPointCollection.Add(new System.Windows.Point(randomNumberx, randomNumber2y));
                 myPointCollection.Add(new System.Windows.Point(randomNumber2x, randomNumber2y));
                 myPointCollection.Add(new System.Windows.Point(randomNumber2x, randomNumbery));
+
+                p = new PointF[] { new PointF(randomNumberx, randomNumbery), new PointF(randomNumberx, randomNumber2y), new PointF(randomNumber2x, randomNumber2y), new PointF(randomNumber2x, randomNumbery) };
+                name = "Rectangle";
             }
 
             if (pentagonCheckBox.IsChecked.Value)
@@ -183,6 +189,9 @@ namespace ShapeGenerator
                 myPointCollection.Add(new System.Windows.Point(480, y4));
                 myPointCollection.Add(new System.Windows.Point(590, y2));
                 myPointCollection.Add(new System.Windows.Point(550, y));
+
+                p = new PointF[] { new PointF(413, y), new PointF(370, y2), new PointF(480, y4), new PointF(590, y2), new PointF(550, y) };
+                name = "Pentagon";
             }
 
             if (hexagonCheckBox.IsChecked.Value)
@@ -215,6 +224,9 @@ namespace ShapeGenerator
                 myPointCollection.Add(new System.Windows.Point(x4, y3));
                 myPointCollection.Add(new System.Windows.Point(x3, y2));
                 myPointCollection.Add(new System.Windows.Point(x4, y));
+
+                p = new PointF[] { new PointF(x, y), new PointF(x2, y2), new PointF(x, y3), new PointF(x4, y3), new PointF(x3, y2), new PointF(x4, y) };
+                name = "Hexagon";
             }
 
             RotateTransform rotateTransform = new RotateTransform(randomNum.Next(0, 90), 0, 0);
