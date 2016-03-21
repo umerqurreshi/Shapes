@@ -45,7 +45,7 @@ namespace ShapeGenerator
         int numberOfFiles = 0;
         int fileNumber = 1;
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private async void button_Click(object sender, RoutedEventArgs e)
         {
             if (!circleCheckBox.IsChecked.Value && !lineCheckBox.IsChecked.Value && !triangleCheckBox.IsChecked.Value && !squareCheckBox.IsChecked.Value && !rectangleCheckBox.IsChecked.Value && !pentagonCheckBox.IsChecked.Value && !hexagonCheckBox.IsChecked.Value)
             {
@@ -86,12 +86,14 @@ namespace ShapeGenerator
                 // Ideally have a failsafe here, however we will always check a checkbox!
                 else
                 {
-                    Draw();
+                    await Draw();
+                    lblNumberOfFiles.Content = fileNumber + " files saved...";
+                    lblNumberOfFiles.Foreground = System.Windows.Media.Brushes.Green;
                 }
             }
         }
 
-        private void Draw()
+        private async Task Draw()
         {
             if (lineCheckBox.IsChecked.Value)
             {
@@ -200,7 +202,7 @@ namespace ShapeGenerator
                     System.IO.Path.GetTempPath(),
                     String.Format($"{name}-{fileNumber}.png"));
 
-                bmp.Save(path);
+              await Task.Run(() => bmp.Save(path));
             }
         }
 
