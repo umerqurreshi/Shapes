@@ -59,7 +59,7 @@ namespace ShapeGenerator
             {
                 name = Shapes.Circle.ToString();
                 int widthAndHeight = randomNum.Next(1, 400);
-
+                
                 using (var bmp = new Bitmap(3000, 3000))
                 {
                     using (var gr = Graphics.FromImage(bmp))
@@ -70,15 +70,16 @@ namespace ShapeGenerator
 
                         var path = System.IO.Path.Combine(
                             System.IO.Path.GetTempPath(),
-                            String.Format($"{name}-{fileNumber}.png"));
-
+                            $"{name}-{fileNumber}.png");
+                       
                         await Task.Run(() => bmp.Save(path));
-
+                        
                         // Keeping the user updated of file saving progress
                         lblNumberOfFiles.Foreground = System.Windows.Media.Brushes.Green;
                         lblNumberOfFiles.Content = fileNumber == numberOfFiles ? String.Format($"All {numberOfFiles} files saved") : String.Format($"{fileNumber} files saved");
                     }
                 }
+               
             }
             // Ideally have a failsafe here, however we will always check a checkbox!
             else
@@ -115,7 +116,7 @@ namespace ShapeGenerator
 
                     var path = System.IO.Path.Combine(
                         System.IO.Path.GetTempPath(),
-                        String.Format($"{name}-{fileNumber}.png"));
+                        $"{name}-{fileNumber}.png");
 
                     await Task.Run(() => bmp.Save(path));
                 }

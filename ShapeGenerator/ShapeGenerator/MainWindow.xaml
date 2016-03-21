@@ -17,6 +17,7 @@
         <CheckBox x:Name="hexagonCheckBox" Content="Hexagon" HorizontalAlignment="Left" Margin="43,222,0,0" VerticalAlignment="Top" Checked="hexagonCheckBox_Checked"/>
         <TextBox x:Name="txtNumberOfFiles" HorizontalAlignment="Left" Height="17" Margin="182,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100"/>
         <Label x:Name="lblNumberOfFiles" HorizontalAlignment="Left" Height="44" Margin="39,25,0,0" VerticalAlignment="Top" Width="200" Content="No. of files to generate"/>
+        <Label x:Name="lblTimer" HorizontalAlignment="Left" Margin="498,237,0,0" VerticalAlignment="Top" Height="30" Width="100"/>
     </Grid>
 
 </Window>
