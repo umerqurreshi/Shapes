@@ -26,6 +26,7 @@ namespace ShapeGenerator
         public MainWindow()
         {
             InitializeComponent();
+            
         }
 
         Random randomNum = new Random();
@@ -36,6 +37,11 @@ namespace ShapeGenerator
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
+            if (!circleCheckBox.IsChecked.Value && !lineCheckBox.IsChecked.Value && !circleCheckBox.IsChecked.Value && !triangleCheckBox.IsChecked.Value && !squareCheckBox.IsChecked.Value && !pentagonCheckBox.IsChecked.Value && !hexagonCheckBox.IsChecked.Value)
+            {
+                MessageBox.Show("Please select a value");
+            }
+
             p = new PointF[0];
             int result = 0;
 
@@ -58,19 +64,23 @@ namespace ShapeGenerator
                     grid.Children.Add(ellipse);
                     name = "Circle";
                     int widthAndHeight = randomNum.Next(1, 400);
+
                     using (var bmp = new Bitmap(3000, 3000))
-                    using (var gr = Graphics.FromImage(bmp))
                     {
-                        gr.RotateTransform(randomNum.Next(0, 20));
-                        System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Brushes.Black);
-                        gr.DrawEllipse(pen, new RectangleF(randomNum.Next(100, 600), randomNum.Next(150, 650), widthAndHeight, widthAndHeight));
+                        using (var gr = Graphics.FromImage(bmp))
+                        {
+                            gr.RotateTransform(randomNum.Next(0, 20));
+                            System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Brushes.Black);
+                            gr.DrawEllipse(pen, new RectangleF(randomNum.Next(100, 600), randomNum.Next(150, 650), widthAndHeight, widthAndHeight));
 
-                        var path = System.IO.Path.Combine(
-                            System.IO.Path.GetTempPath(),
-                            String.Format($"{name}-{fileNumber}.png"));
+                            var path = System.IO.Path.Combine(
+                                System.IO.Path.GetTempPath(),
+                                String.Format($"{name}-{fileNumber}.png"));
 
-                        bmp.Save(path);
+                            bmp.Save(path);
+                        }
                     }
+                    
                 }
                 // Ideally have a failsafe here, however we will always check a checkbox!
                 else
